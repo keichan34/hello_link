@@ -1,0 +1,27 @@
+<div class="jumbotron">
+  <h2>Welcome to Instagram Link!</h2>
+  <p class="lead">
+    A bare-bones service that crossposts your
+    <a href="https://instagram.com">Instagram</a>
+    photos to <a href="https://app.net">App.net</a>.
+  </p>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h3>Instagram</h3>
+    <%= if User.is_linked_to_instagram?(@conn.assigns.user) do %>
+      <span class="btn btn-default btn-lg" disabled="disabled">Linked with Instagram</span>
+    <% else %>
+      <a href="<%= auth_path(InstagramLink.Endpoint, :instagram) %>" class="btn btn-primary btn-lg">Authorize with Instagram</a>
+    <% end %>
+  </div>
+  <div class="col-sm-6">
+    <h3>App.net</h3>
+    <%= if User.is_linked_to_adn?(@conn.assigns.user) do %>
+      <span class="btn btn-default btn-lg" disabled="disabled">Linked with App.net</span>
+    <% else %>
+      <a href="<%= auth_path(InstagramLink.Endpoint, :adn) %>" class="btn btn-primary btn-lg">Authorize with App.net</a>
+    <% end %>
+  </div>
+</div>
