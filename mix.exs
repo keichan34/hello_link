@@ -46,7 +46,8 @@ defmodule InstagramLink.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.7.4"},
-      {:poison, "~> 1.5"}
+      {:poison, "~> 1.5"},
+      {:exrm, "~> 0.19.9"}
     ]
   end
 
