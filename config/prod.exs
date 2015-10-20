@@ -14,7 +14,8 @@ use Mix.Config
 config :instagram_link, InstagramLink.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "instagram-link.kbys.me", port: 443],
-  cache_static_manifest: "priv/static/manifest.json"
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info
