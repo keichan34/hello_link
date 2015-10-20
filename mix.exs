@@ -2,8 +2,14 @@ defmodule InstagramLink.Mixfile do
   use Mix.Project
 
   def project do
+    {result, _} = System.cmd("git", ["rev-parse", "HEAD"])
+    git_sha = String.slice(result, 0, 7)
+
+    {result, _} = System.cmd("git", ["rev-list", "HEAD", "--count"])
+    commit_count = String.strip(result)
+
     [app: :instagram_link,
-     version: "0.0.1",
+     version: "0.0.2-#{commit_count}-#{git_sha}",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
