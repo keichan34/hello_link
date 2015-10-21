@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :instagram_link, InstagramLink.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "keita",
+  password: "",
   database: "instagram_link_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -1,7 +1,7 @@
 <div class="jumbotron">
-  <h2>Welcome to Instagram Link!</h2>
+  <h2>Welcome to Hello Link!</h2>
   <p class="lead">
-    A bare-bones service that crossposts your
+    A bare-bones service that
     <a href="https://instagram.com">Instagram</a>
     photos to <a href="https://app.net">App.net</a>.
   </p>

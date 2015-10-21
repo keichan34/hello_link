@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :instagram_link, InstagramLink.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "instagram-link.kbys.me", port: 443],
+  url: [host: "hello-link.kbys.me", port: 443],
   cache_static_manifest: "priv/static/manifest.json",
   server: true
 
