@@ -33,7 +33,9 @@ defmodule InstagramLink.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_instagram_link_key",
-    signing_salt: "HuyRmKCa"
+    signing_salt: "HuyRmKCa",
+    # 1 year
+    max_age: 31_536_000
 
   plug InstagramLink.UserSession
 
