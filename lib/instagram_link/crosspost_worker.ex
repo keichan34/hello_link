@@ -55,13 +55,8 @@ defmodule InstagramLink.CrosspostWorker do
       "type" => "photo"
     }
 
-    link_length = String.length(photo["link"])
-    text = if (String.length(caption_text) + link_length) > 255 do
-      {head, _} = String.split_at(caption_text, 253 - link_length)
-      Enum.join([head, "…", photo["link"]], " ")
-    else
-      Enum.join([caption_text, photo["link"]], " ")
-    end
+    {text, entities} = InstagramLink.Utilities.generate_text_entities(
+      caption_text, photo["link"])
 
     body = %{
       "text" => text,
@@ -76,7 +71,8 @@ defmodule InstagramLink.CrosspostWorker do
             "canonical_url" => photo["link"]
           }
         }
-      ]
+      ],
+      "entities" => entities
     }
 
     case AdnApi.post("/posts?include_post_annotations=1", body, [{"Authorization", "Bearer " <> user.adn_token}]) do
