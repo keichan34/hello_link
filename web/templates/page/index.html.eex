@@ -21,7 +21,7 @@
   <div class="col-sm-6">
     <h3>Instagram</h3>
     <%= if User.is_linked_to_instagram?(@conn.assigns.user) do %>
-      <span class="btn btn-default btn-lg" disabled="disabled">Linked with Instagram</span>
+      <span class="btn btn-default btn-lg" disabled="disabled">Linked with Instagram (<%= @conn.assigns.user.instagram_username %>)</span>
     <% else %>
       <a href="<%= auth_path(InstagramLink.Endpoint, :instagram) %>" class="btn btn-primary btn-lg">Authorize with Instagram</a>
     <% end %>
@@ -29,7 +29,7 @@
   <div class="col-sm-6">
     <h3>App.net</h3>
     <%= if User.is_linked_to_adn?(@conn.assigns.user) do %>
-      <span class="btn btn-default btn-lg" disabled="disabled">Linked with App.net</span>
+      <span class="btn btn-default btn-lg" disabled="disabled">Linked with App.net (<%= @conn.assigns.user.adn_username %>)</span>
     <% else %>
       <a href="<%= auth_path(InstagramLink.Endpoint, :adn) %>" class="btn btn-primary btn-lg">Authorize with App.net</a>
     <% end %>

@@ -4,19 +4,21 @@ defmodule InstagramLink.AuthCallbackController do
   alias InstagramLink.InstagramApi
   alias InstagramLink.AdnAccountApi
 
+  require Logger
+
   def instagram(conn, %{"code" => code} = _params) do
     conn
-    |> get_user_from_instagram_code(code)
+    |> get_user_from_code({:instagram, code})
     |> redirect to: "/"
   end
 
   def adn(conn, %{"code" => code} = _params) do
     conn
-    |> get_user_from_adn_code(code)
+    |> get_user_from_code({:adn, code})
     |> redirect to: "/"
   end
 
-  defp get_user_from_instagram_code(conn, code) do
+  defp get_user_from_code(conn, {:instagram, code}) do
     body = %{
       client_id: InstagramLink.instagram_client_id,
       client_secret: InstagramLink.instagram_client_secret,
@@ -27,44 +29,12 @@ defmodule InstagramLink.AuthCallbackController do
 
     case InstagramApi.post("/oauth/access_token", body) do
       {:ok, %HTTPoison.Response{body: response}} ->
-        fetch_or_create_user(conn, response)
+        params = prepare_user_params({:instagram, response})
+        fetch_or_create_user(conn, {:instagram, params})
     end
   end
 
-  defp fetch_or_create_user(conn, %{"access_token" => token, "user" => %{"id" => uid}}) do
-    fetch_or_create_user(conn, token, uid, :instagram)
-  end
-
-  defp fetch_or_create_user(conn, %{"access_token" => token, "token" => %{"user" => %{"id" => uid }}}) do
-    fetch_or_create_user(conn, token, uid, :adn)
-  end
-
-  defp fetch_or_create_user(%Plug.Conn{assigns: %{user: nil}} = conn, token, uid, service) do
-    user = case Repo.get_by(User, [{:"#{service}_uid", uid}]) do
-      nil ->
-        changeset = User.changeset(%User{}, [{:"#{service}_uid", uid}, {:"#{service}_token", token}] |> Enum.into(%{}))
-        {:ok, user} = Repo.insert(changeset)
-        user
-      user ->
-        changeset = User.changeset(user, [{:"#{service}_token", token}] |> Enum.into(%{}))
-        {:ok, user} = Repo.update(changeset)
-        user
-    end
-
-    conn
-    |> assign(:user, user)
-    |> put_session(:user_id, user.id)
-  end
-
-  defp fetch_or_create_user(%Plug.Conn{assigns: %{user: user}} = conn, token, uid, service) do
-    changeset = User.changeset(user, [{:"#{service}_uid", uid}, {:"#{service}_token", token}] |> Enum.into(%{}))
-    {:ok, user} = Repo.update(changeset)
-
-    conn
-    |> assign(:user, user)
-  end
-
-  defp get_user_from_adn_code(conn, code) do
+  defp get_user_from_code(conn, {:adn, code}) do
     body = %{
       client_id: InstagramLink.adn_client_id,
       client_secret: InstagramLink.adn_client_secret,
@@ -75,7 +45,65 @@ defmodule InstagramLink.AuthCallbackController do
 
     case AdnAccountApi.post("/oauth/access_token", body, [{:"content-type", "application/x-www-form-urlencoded"}]) do
       {:ok, %HTTPoison.Response{body: response}} ->
-        fetch_or_create_user(conn, response)
+        params = prepare_user_params({:adn, response})
+        fetch_or_create_user(conn, {:adn, params})
     end
+  end
+
+  defp prepare_user_params({:instagram, response}) do
+    [
+      token: response["access_token"],
+      uid: response["user"]["id"],
+      username: response["user"]["username"]
+    ]
+  end
+
+  defp prepare_user_params({:adn, response}) do
+    [
+      token: response["access_token"],
+      uid: response["token"]["user"]["id"],
+      username: response["token"]["user"]["username"]
+    ]
+  end
+
+  defp fetch_or_create_user(%Plug.Conn{assigns: %{user: nil}} = conn, service_params) do
+    changes = service_params |> transform_service_params |> Enum.into(%{})
+    user = case Repo.get_by(User, extract_service_params(service_params, [:uid])) do
+      nil ->
+        changeset = User.changeset(%User{}, changes)
+        {:ok, user} = Repo.insert(changeset)
+        user
+      user ->
+        changeset = User.changeset(user, changes)
+        {:ok, user} = Repo.update(changeset)
+        user
+    end
+
+    conn
+    |> assign(:user, user)
+    |> put_session(:user_id, user.id)
+  end
+
+  defp fetch_or_create_user(%Plug.Conn{assigns: %{user: user}} = conn, service_params) do
+    changes = service_params |> transform_service_params |> Enum.into(%{})
+    changeset = User.changeset(user, changes)
+    {:ok, user} = Repo.update(changeset)
+
+    conn
+    |> assign(:user, user)
+  end
+
+  defp transform_service_params({service, params}) do
+    params
+    |>  Enum.map(fn({key, value}) ->
+          {:"#{service}_#{key}", value}
+        end)
+  end
+
+  defp extract_service_params({service, params}, keys) do
+    params = Enum.filter(params, fn({key, _}) ->
+      Enum.member?(keys, key)
+    end)
+    transform_service_params({service, params})
   end
 end

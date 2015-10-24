@@ -2,17 +2,26 @@ defmodule InstagramLink.User do
   use InstagramLink.Web, :model
 
   schema "users" do
-    field :instagram_uid, :string
     field :adn_uid, :string
-
-    field :instagram_token, :string
     field :adn_token, :string
+    field :adn_username, :string
+
+    field :instagram_uid, :string
+    field :instagram_token, :string
+    field :instagram_username, :string
 
     timestamps
   end
 
   @required_fields ~w()
-  @optional_fields ~w(instagram_uid adn_uid instagram_token adn_token)
+  @optional_fields ~w(
+    instagram_uid
+    adn_uid
+    instagram_token
+    adn_token
+    adn_username
+    instagram_username
+  )
 
   @doc """
   Creates a changeset based on the `model` and `params`.
