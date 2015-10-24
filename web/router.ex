@@ -23,6 +23,8 @@ defmodule InstagramLink.Router do
 
     get "/auth/instagram/callback", AuthCallbackController, :instagram
     get "/auth/adn/callback", AuthCallbackController, :adn
+
+    delete "/session", SessionsController, :destroy
   end
 
   scope "/", InstagramLink do

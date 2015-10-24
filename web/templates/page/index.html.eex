@@ -35,3 +35,16 @@
     <% end %>
   </div>
 </div>
+
+<%= if @conn.assigns.user do %>
+  <div class="logout-row row">
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+      <p class="small">
+        Logging out will allow you to link separate accounts. If you log out,
+        your posts will still be crossposted. To stop crossposting, please
+        de-authorize the services instead.
+      </p>
+      <%= button "Logout", to: sessions_path(InstagramLink.Endpoint, :destroy), method: :delete, class: "btn btn-default btn-sm" %>
+    </div>
+  </div>
+<% end %>
