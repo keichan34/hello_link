@@ -22,6 +22,9 @@
     <h3>Instagram</h3>
     <%= if User.is_linked_to_instagram?(@conn.assigns.user) do %>
       <span class="btn btn-default btn-lg" disabled="disabled">Linked with Instagram (<%= @conn.assigns.user.instagram_username %>)</span>
+      <br>
+      <br>
+      <%= button "De-authorize Instagram", to: auth_path(InstagramLink.Endpoint, :deauth_instagram), method: :delete, class: "btn btn-danger btn-sm" %>
     <% else %>
       <a href="<%= auth_path(InstagramLink.Endpoint, :instagram) %>" class="btn btn-primary btn-lg">Authorize with Instagram</a>
     <% end %>
@@ -30,6 +33,9 @@
     <h3>App.net</h3>
     <%= if User.is_linked_to_adn?(@conn.assigns.user) do %>
       <span class="btn btn-default btn-lg" disabled="disabled">Linked with App.net (<%= @conn.assigns.user.adn_username %>)</span>
+      <br>
+      <br>
+      <%= button "De-authorize App.net", to: auth_path(InstagramLink.Endpoint, :deauth_adn), method: :delete, class: "btn btn-danger btn-sm" %>
     <% else %>
       <a href="<%= auth_path(InstagramLink.Endpoint, :adn) %>" class="btn btn-primary btn-lg">Authorize with App.net</a>
     <% end %>

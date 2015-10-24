@@ -19,7 +19,9 @@ defmodule InstagramLink.Router do
     get "/", PageController, :index
 
     get "/auth/instagram", AuthController, :instagram
+    delete "/auth/instagram", AuthController, :deauth_instagram
     get "/auth/adn", AuthController, :adn
+    delete "/auth/adn", AuthController, :deauth_adn
 
     get "/auth/instagram/callback", AuthCallbackController, :instagram
     get "/auth/adn/callback", AuthCallbackController, :adn
