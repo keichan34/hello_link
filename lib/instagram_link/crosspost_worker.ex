@@ -35,6 +35,10 @@ defmodule InstagramLink.CrosspostWorker do
   end
 
   defp post_to_adn(:ignore), do: :ignore
+  defp post_to_adn({:ok, %User{id: id, adn_token: nil}, _}) do
+    Logger.info "Received Instagram notification for User<#{id}>, but no ADN token was found."
+    :ignore
+  end
   defp post_to_adn({:ok, _user, %{"type" => "video"}}), do: :ignore
   defp post_to_adn({:ok, user, %{"type" => "image"} = photo}) do
     caption_text = if photo["caption"] do
