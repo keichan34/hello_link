@@ -5,6 +5,9 @@ defmodule InstagramLink.InstagramStream do
 
   require Logger
 
+  # Refresh the stream subscription every 24 hours.
+  @refresh_interval 86_400_000
+
   def start_link() do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
   end
@@ -22,11 +25,17 @@ defmodule InstagramLink.InstagramStream do
 
     {:ok, %{
       token: "aoeuaoeu",
-      stream_id: nil
+      stream_id: nil,
+      refresh_timer: nil
     }}
   end
 
-  def handle_info(:initialize, %{token: token} = state) do
+  def handle_info(:initialize, state) do
+    state = enqueue_refresh_timer(state)
+    handle_info(:do_refresh, state)
+  end
+
+  def handle_info(:do_refresh, %{token: token} = state) do
     body = %{
       client_id: InstagramLink.instagram_client_id,
       client_secret: InstagramLink.instagram_client_secret,
@@ -60,6 +69,10 @@ defmodule InstagramLink.InstagramStream do
     end
 
     {:noreply, state}
+  end
+
+  defp enqueue_refresh_timer(state, timeout \\ @refresh_interval) do
+    %{state | refresh_timer: Process.send_after(self(), :do_refresh, timeout)}
   end
 
   defp remove_subscription(%{"id" => id}) do
