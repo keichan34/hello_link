@@ -33,6 +33,23 @@ defmodule InstagramLink.UtilitiesTest do
     }
   end
 
+  test "generate_text_entities works with emoji" do
+    {text, entities} = Utilities.generate_text_entities(
+      "SEA 🛫😴🛬ATL☕️☕️☕️🛫🛬BWI.",
+      "http://www.example.com")
+
+    assert text == "SEA 🛫😴🛬ATL☕️☕️☕️🛫🛬BWI. Image"
+    assert entities == %{
+      "links" => [
+        %{
+          "pos" => 20,
+          "len" => 5,
+          "url" => "http://www.example.com"
+        }
+      ]
+    }
+  end
+
   test "generate_text_entities works with a truncated caption" do
     {text, entities} = Utilities.generate_text_entities("Hello there, how are you? I am doing very well, thank you very much. How are you? I am doing very well, thank you very much. How are you? I am doing very well, thank you very much. How are you? I am doing very well, thank you very much. How are you? I am doing very well, thank you very much. How are you?", "http://www.example.com")
 

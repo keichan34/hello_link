@@ -14,10 +14,12 @@ defmodule InstagramLink do
       worker(InstagramLink.Queue, []),
       worker(InstagramLink.QueueEvents, []),
       worker(InstagramLink.QueueProcessor, []),
-      supervisor(InstagramLink.CrosspostSup, []),
-
-      worker(InstagramLink.InstagramStream, [])
+      supervisor(InstagramLink.CrosspostSup, [])
     ]
+
+    if instagram_client_id && instagram_client_secret do
+      children = [worker(InstagramLink.InstagramStream, []) | children]
+    end
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
