@@ -1,7 +1,7 @@
-defmodule InstagramLink.InstagramStream do
+defmodule HelloLink.InstagramStream do
   use GenServer
 
-  alias InstagramLink.InstagramApi
+  alias HelloLink.InstagramApi
 
   require Logger
 
@@ -37,12 +37,12 @@ defmodule InstagramLink.InstagramStream do
 
   def handle_info(:do_refresh, %{token: token} = state) do
     body = %{
-      client_id: InstagramLink.instagram_client_id,
-      client_secret: InstagramLink.instagram_client_secret,
+      client_id: HelloLink.instagram_client_id,
+      client_secret: HelloLink.instagram_client_secret,
       object: "user",
       aspect: "media",
       verify_token: token,
-      callback_url: InstagramLink.instagram_callback_url
+      callback_url: HelloLink.instagram_callback_url
     } |> URI.encode_query
 
     case InstagramApi.post("/v1/subscriptions/", body, [{:"content-type", "application/x-www-form-urlencoded"}]) do
@@ -57,14 +57,14 @@ defmodule InstagramLink.InstagramStream do
 
   def handle_cast(:cleanup, state) do
     query = %{
-      client_id: InstagramLink.instagram_client_id,
-      client_secret: InstagramLink.instagram_client_secret
+      client_id: HelloLink.instagram_client_id,
+      client_secret: HelloLink.instagram_client_secret
     } |> URI.encode_query
 
     case InstagramApi.get("/v1/subscriptions?#{query}") do
       {:ok, %HTTPoison.Response{body: response}} ->
         response["data"]
-        |> Enum.filter(fn(%{"callback_url" => url}) -> url != InstagramLink.instagram_callback_url end)
+        |> Enum.filter(fn(%{"callback_url" => url}) -> url != HelloLink.instagram_callback_url end)
         |> Enum.each(&remove_subscription/1)
     end
 
@@ -77,8 +77,8 @@ defmodule InstagramLink.InstagramStream do
 
   defp remove_subscription(%{"id" => id}) do
     query = %{
-      client_id: InstagramLink.instagram_client_id,
-      client_secret: InstagramLink.instagram_client_secret,
+      client_id: HelloLink.instagram_client_id,
+      client_secret: HelloLink.instagram_client_secret,
       id: id
     } |> URI.encode_query
 

@@ -1,4 +1,4 @@
-defmodule InstagramLink.Utilities do
+defmodule HelloLink.Utilities do
   @link_text "Image"
 
   def generate_text_entities(caption_text, url) do

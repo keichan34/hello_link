@@ -1,5 +1,5 @@
-defmodule InstagramLink.ErrorView do
-  use InstagramLink.Web, :view
+defmodule HelloLink.ErrorView do
+  use HelloLink.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

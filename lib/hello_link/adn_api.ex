@@ -1,4 +1,4 @@
-defmodule InstagramLink.AdnApi do
+defmodule HelloLink.AdnApi do
   use HTTPoison.Base
 
   def process_url(url) do

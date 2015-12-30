@@ -1,4 +1,4 @@
-defmodule InstagramLink.CrosspostSup do
+defmodule HelloLink.CrosspostSup do
   use Supervisor
 
   def start_link do
@@ -11,7 +11,7 @@ defmodule InstagramLink.CrosspostSup do
 
   def init(:ok) do
     children = [
-      worker(InstagramLink.CrosspostWorker, [], restart: :transient)
+      worker(HelloLink.CrosspostWorker, [], restart: :transient)
     ]
 
     supervise(children, strategy: :simple_one_for_one)

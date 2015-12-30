@@ -1,8 +1,8 @@
-defmodule InstagramLink.AuthCallbackController do
-  use InstagramLink.Web, :controller
+defmodule HelloLink.AuthCallbackController do
+  use HelloLink.Web, :controller
 
-  alias InstagramLink.InstagramApi
-  alias InstagramLink.AdnAccountApi
+  alias HelloLink.InstagramApi
+  alias HelloLink.AdnAccountApi
 
   require Logger
 
@@ -20,10 +20,10 @@ defmodule InstagramLink.AuthCallbackController do
 
   defp get_user_from_code(conn, {:instagram, code}) do
     body = %{
-      client_id: InstagramLink.instagram_client_id,
-      client_secret: InstagramLink.instagram_client_secret,
+      client_id: HelloLink.instagram_client_id,
+      client_secret: HelloLink.instagram_client_secret,
       grant_type: "authorization_code",
-      redirect_uri: auth_callback_url(InstagramLink.Endpoint, :instagram),
+      redirect_uri: auth_callback_url(HelloLink.Endpoint, :instagram),
       code: code
     } |> URI.encode_query
 
@@ -36,10 +36,10 @@ defmodule InstagramLink.AuthCallbackController do
 
   defp get_user_from_code(conn, {:adn, code}) do
     body = %{
-      client_id: InstagramLink.adn_client_id,
-      client_secret: InstagramLink.adn_client_secret,
+      client_id: HelloLink.adn_client_id,
+      client_secret: HelloLink.adn_client_secret,
       grant_type: "authorization_code",
-      redirect_uri: auth_callback_url(InstagramLink.Endpoint, :adn),
+      redirect_uri: auth_callback_url(HelloLink.Endpoint, :adn),
       code: code
     } |> URI.encode_query
 

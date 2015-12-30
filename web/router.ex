@@ -1,5 +1,5 @@
-defmodule InstagramLink.Router do
-  use InstagramLink.Web, :router
+defmodule HelloLink.Router do
+  use HelloLink.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule InstagramLink.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", InstagramLink do
+  scope "/", HelloLink do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
@@ -29,7 +29,7 @@ defmodule InstagramLink.Router do
     delete "/session", SessionsController, :destroy
   end
 
-  scope "/", InstagramLink do
+  scope "/", HelloLink do
     pipe_through :api
 
     get "/instagram-callback", InstagramCallbackController, :verify

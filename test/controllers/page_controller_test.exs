@@ -1,5 +1,5 @@
-defmodule InstagramLink.PageControllerTest do
-  use InstagramLink.ConnCase
+defmodule HelloLink.PageControllerTest do
+  use HelloLink.ConnCase
 
   test "GET /" do
     conn = get conn(), "/"

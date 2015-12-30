@@ -1,14 +1,14 @@
-defmodule InstagramLink.Endpoint do
-  use Phoenix.Endpoint, otp_app: :instagram_link
+defmodule HelloLink.Endpoint do
+  use Phoenix.Endpoint, otp_app: :hello_link
 
-  socket "/socket", InstagramLink.UserSocket
+  socket "/socket", HelloLink.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :instagram_link, gzip: false,
+    at: "/", from: :hello_link, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -32,12 +32,12 @@ defmodule InstagramLink.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_instagram_link_key",
+    key: "_hello_link_key",
     signing_salt: "HuyRmKCa",
     # 1 year
     max_age: 31_536_000
 
-  plug InstagramLink.UserSession
+  plug HelloLink.UserSession
 
-  plug InstagramLink.Router
+  plug HelloLink.Router
 end

@@ -1,12 +1,12 @@
-defmodule InstagramLink.Web do
+defmodule HelloLink.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use InstagramLink.Web, :controller
-      use InstagramLink.Web, :view
+      use HelloLink.Web, :controller
+      use HelloLink.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -20,7 +20,7 @@ defmodule InstagramLink.Web do
     quote do
       use Ecto.Model
 
-      alias InstagramLink.User
+      alias HelloLink.User
 
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
@@ -31,13 +31,13 @@ defmodule InstagramLink.Web do
     quote do
       use Phoenix.Controller
 
-      alias InstagramLink.Repo
+      alias HelloLink.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 1, from: 2]
 
-      alias InstagramLink.User
+      alias HelloLink.User
 
-      import InstagramLink.Router.Helpers
+      import HelloLink.Router.Helpers
     end
   end
 
@@ -51,9 +51,9 @@ defmodule InstagramLink.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      alias InstagramLink.User
+      alias HelloLink.User
 
-      import InstagramLink.Router.Helpers
+      import HelloLink.Router.Helpers
     end
   end
 
@@ -67,7 +67,7 @@ defmodule InstagramLink.Web do
     quote do
       use Phoenix.Channel
 
-      alias InstagramLink.Repo
+      alias HelloLink.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 1, from: 2]
     end

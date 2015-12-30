@@ -5,5 +5,5 @@ dir = Path.expand(Path.join(__ENV__.file, ".."))
 mixfile = Path.join(dir, "mix.exs")
 File.cd! dir, fn ->
   Code.load_file(mixfile)
-  IO.write InstagramLink.Mixfile.project[:version]
+  IO.write HelloLink.Mixfile.project[:version]
 end

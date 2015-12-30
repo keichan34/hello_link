@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h2>Welcome to Hello Link!</h2>
   <p class="lead">
-    A bare-bones service that
+    A bare-bones service that cross-posts
     <a href="https://instagram.com">Instagram</a>
     photos to <a href="https://app.net">App.net</a>.
   </p>
@@ -24,9 +24,9 @@
       <span class="btn btn-default btn-lg" disabled="disabled">Linked with Instagram (<%= @conn.assigns.user.instagram_username %>)</span>
       <br>
       <br>
-      <%= button "De-authorize Instagram", to: auth_path(InstagramLink.Endpoint, :deauth_instagram), method: :delete, class: "btn btn-danger btn-sm" %>
+      <%= button "De-authorize Instagram", to: auth_path(HelloLink.Endpoint, :deauth_instagram), method: :delete, class: "btn btn-danger btn-sm" %>
     <% else %>
-      <a href="<%= auth_path(InstagramLink.Endpoint, :instagram) %>" class="btn btn-primary btn-lg">Authorize with Instagram</a>
+      <a href="<%= auth_path(HelloLink.Endpoint, :instagram) %>" class="btn btn-primary btn-lg">Authorize with Instagram</a>
     <% end %>
   </div>
   <div class="col-sm-6">
@@ -35,9 +35,9 @@
       <span class="btn btn-default btn-lg" disabled="disabled">Linked with App.net (<%= @conn.assigns.user.adn_username %>)</span>
       <br>
       <br>
-      <%= button "De-authorize App.net", to: auth_path(InstagramLink.Endpoint, :deauth_adn), method: :delete, class: "btn btn-danger btn-sm" %>
+      <%= button "De-authorize App.net", to: auth_path(HelloLink.Endpoint, :deauth_adn), method: :delete, class: "btn btn-danger btn-sm" %>
     <% else %>
-      <a href="<%= auth_path(InstagramLink.Endpoint, :adn) %>" class="btn btn-primary btn-lg">Authorize with App.net</a>
+      <a href="<%= auth_path(HelloLink.Endpoint, :adn) %>" class="btn btn-primary btn-lg">Authorize with App.net</a>
     <% end %>
   </div>
 </div>
@@ -50,7 +50,7 @@
         your posts will still be crossposted. To stop crossposting, please
         de-authorize the services instead.
       </p>
-      <%= button "Logout", to: sessions_path(InstagramLink.Endpoint, :destroy), method: :delete, class: "btn btn-default btn-sm" %>
+      <%= button "Logout", to: sessions_path(HelloLink.Endpoint, :destroy), method: :delete, class: "btn btn-default btn-sm" %>
     </div>
   </div>
 <% end %>

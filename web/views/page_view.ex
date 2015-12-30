@@ -1,3 +1,3 @@
-defmodule InstagramLink.PageView do
-  use InstagramLink.Web, :view
+defmodule HelloLink.PageView do
+  use HelloLink.Web, :view
 end

@@ -1,4 +1,4 @@
-defmodule InstagramLink.Queue do
+defmodule HelloLink.Queue do
   use GenServer
 
   def start_link do
@@ -18,7 +18,7 @@ defmodule InstagramLink.Queue do
   end
 
   def handle_info(:notify_in, queue) do
-    InstagramLink.QueueEvents.notify(:queue_in)
+    HelloLink.QueueEvents.notify(:queue_in)
     {:noreply, queue}
   end
 

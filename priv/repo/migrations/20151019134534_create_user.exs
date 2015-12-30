@@ -1,4 +1,4 @@
-defmodule InstagramLink.Repo.Migrations.CreateUser do
+defmodule HelloLink.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do

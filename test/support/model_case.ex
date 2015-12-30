@@ -1,4 +1,4 @@
-defmodule InstagramLink.ModelCase do
+defmodule HelloLink.ModelCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -16,16 +16,16 @@ defmodule InstagramLink.ModelCase do
 
   using do
     quote do
-      alias InstagramLink.Repo
+      alias HelloLink.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
-      import InstagramLink.ModelCase
+      import HelloLink.ModelCase
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(InstagramLink.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(HelloLink.Repo, [])
     end
 
     :ok

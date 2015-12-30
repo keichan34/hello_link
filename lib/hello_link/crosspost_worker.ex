@@ -1,10 +1,10 @@
-defmodule InstagramLink.CrosspostWorker do
+defmodule HelloLink.CrosspostWorker do
   require Logger
 
-  alias InstagramLink.Repo
-  alias InstagramLink.User
-  alias InstagramLink.InstagramApi
-  alias InstagramLink.AdnApi
+  alias HelloLink.Repo
+  alias HelloLink.User
+  alias HelloLink.InstagramApi
+  alias HelloLink.AdnApi
 
   def start_link(item) do
     Task.start_link(__MODULE__, :init, [item])
@@ -59,7 +59,7 @@ defmodule InstagramLink.CrosspostWorker do
       "type" => "photo"
     }
 
-    {text, entities} = InstagramLink.Utilities.generate_text_entities(
+    {text, entities} = HelloLink.Utilities.generate_text_entities(
       caption_text, photo["link"])
 
     body = %{

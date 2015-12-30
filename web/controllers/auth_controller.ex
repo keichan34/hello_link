@@ -1,10 +1,10 @@
-defmodule InstagramLink.AuthController do
-  use InstagramLink.Web, :controller
+defmodule HelloLink.AuthController do
+  use HelloLink.Web, :controller
 
   def instagram(conn, _params) do
     query = %{
-      client_id: InstagramLink.instagram_client_id,
-      redirect_uri: auth_callback_url(InstagramLink.Endpoint, :instagram),
+      client_id: HelloLink.instagram_client_id,
+      redirect_uri: auth_callback_url(HelloLink.Endpoint, :instagram),
       response_type: "code"
     } |> URI.encode_query
     redirect conn, external: "https://api.instagram.com/oauth/authorize/?#{query}"
@@ -12,8 +12,8 @@ defmodule InstagramLink.AuthController do
 
   def adn(conn, _params) do
     query = %{
-      client_id: InstagramLink.adn_client_id,
-      redirect_uri: auth_callback_url(InstagramLink.Endpoint, :adn),
+      client_id: HelloLink.adn_client_id,
+      redirect_uri: auth_callback_url(HelloLink.Endpoint, :adn),
       response_type: "code",
       scope: "write_post"
     } |> URI.encode_query

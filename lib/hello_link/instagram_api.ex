@@ -1,4 +1,4 @@
-defmodule InstagramLink.InstagramApi do
+defmodule HelloLink.InstagramApi do
   use HTTPoison.Base
 
   require Logger

@@ -6,12 +6,11 @@
 use Mix.Config
 
 # Configures the endpoint
-config :instagram_link, InstagramLink.Endpoint,
+config :hello_link, HelloLink.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "xYAwE6HDsdjr0x0kUfapkM7qalO0aDCmmydk5b+aHShvjpTXemjLC4ph3arrmnOG",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: InstagramLink.PubSub,
+  pubsub: [name: HelloLink.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

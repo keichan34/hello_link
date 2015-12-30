@@ -1,4 +1,4 @@
-defmodule InstagramLink.Repo.Migrations.AddInstagramAdnUsernamesToUsers do
+defmodule HelloLink.Repo.Migrations.AddInstagramAdnUsernamesToUsers do
   use Ecto.Migration
 
   def change do

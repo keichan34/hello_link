@@ -1,3 +1,3 @@
-defmodule InstagramLink.LayoutView do
-  use InstagramLink.Web, :view
+defmodule HelloLink.LayoutView do
+  use HelloLink.Web, :view
 end

@@ -1,3 +1,3 @@
-defmodule InstagramLink.LayoutViewTest do
-  use InstagramLink.ConnCase, async: true
+defmodule HelloLink.LayoutViewTest do
+  use HelloLink.ConnCase, async: true
 end

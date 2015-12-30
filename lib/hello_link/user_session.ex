@@ -1,8 +1,8 @@
-defmodule InstagramLink.UserSession do
+defmodule HelloLink.UserSession do
   import Plug.Conn
 
-  alias InstagramLink.Repo
-  alias InstagramLink.User
+  alias HelloLink.Repo
+  alias HelloLink.User
 
   def init(opts) do
     opts

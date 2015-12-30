@@ -1,5 +1,5 @@
-defmodule InstagramLink.SessionsController do
-  use InstagramLink.Web, :controller
+defmodule HelloLink.SessionsController do
+  use HelloLink.Web, :controller
 
   def destroy(conn, _params) do
     conn

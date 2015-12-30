@@ -1,7 +1,7 @@
-defmodule InstagramLink.UtilitiesTest do
+defmodule HelloLink.UtilitiesTest do
   use ExUnit.Case, async: true
 
-  alias InstagramLink.Utilities
+  alias HelloLink.Utilities
 
   test "truncate_string returns the original string if it is shorter than the max" do
     str = "hello"

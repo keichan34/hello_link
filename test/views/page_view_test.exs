@@ -1,3 +1,3 @@
-defmodule InstagramLink.PageViewTest do
-  use InstagramLink.ConnCase, async: true
+defmodule HelloLink.PageViewTest do
+  use HelloLink.ConnCase, async: true
 end

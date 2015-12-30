@@ -1,4 +1,4 @@
-defmodule InstagramLink.Mixfile do
+defmodule HelloLink.Mixfile do
   use Mix.Project
 
   def project do
@@ -8,8 +8,8 @@ defmodule InstagramLink.Mixfile do
     {result, _} = System.cmd("git", ["rev-list", "HEAD", "--count"])
     commit_count = String.strip(result)
 
-    [app: :instagram_link,
-     version: "0.0.2-#{commit_count}-#{git_sha}",
+    [app: :hello_link,
+     version: "0.0.3-#{commit_count}-#{git_sha}",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
@@ -23,7 +23,7 @@ defmodule InstagramLink.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {InstagramLink, []},
+    [mod: {HelloLink, []},
      applications: [
       :phoenix,
       :phoenix_html,

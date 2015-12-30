@@ -1,5 +1,5 @@
-defmodule InstagramLink.InstagramCallbackController do
-  use InstagramLink.Web, :controller
+defmodule HelloLink.InstagramCallbackController do
+  use HelloLink.Web, :controller
 
   def verify(conn, %{"hub.mode" => "subscribe", "hub.challenge" => challenge, "hub.verify_token" => verify_token}) do
     # Verify token...
@@ -14,7 +14,7 @@ defmodule InstagramLink.InstagramCallbackController do
   end
 
   def process(conn, %{"_json" => changed}) do
-    Enum.each(changed, &InstagramLink.Queue.push/1)
+    Enum.each(changed, &HelloLink.Queue.push/1)
     text conn, ""
   end
 end

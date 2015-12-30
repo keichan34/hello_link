@@ -1,5 +1,5 @@
-defmodule InstagramLink.User do
-  use InstagramLink.Web, :model
+defmodule HelloLink.User do
+  use HelloLink.Web, :model
 
   schema "users" do
     field :adn_uid, :string
