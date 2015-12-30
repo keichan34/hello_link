@@ -5,7 +5,7 @@ defmodule InstagramLink.Utilities do
     link_text_length = @link_text |> String.length
     max = 256 - (link_text_length + 1)
     text = caption_text |> truncate_string(max)
-    pos = String.length(text) + 1
+    pos = (String.codepoints(text) |> length) + 1
     text = text <> " " <> @link_text
 
     entities = %{

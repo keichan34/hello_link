@@ -33,7 +33,7 @@ defmodule InstagramLink.UtilitiesTest do
     }
   end
 
-  test "generate_text_entities works with emoji" do
+  test "generate_text_entities works with emoji 1" do
     {text, entities} = Utilities.generate_text_entities(
       "SEA 🛫😴🛬ATL☕️☕️☕️🛫🛬BWI.",
       "http://www.example.com")
@@ -42,7 +42,58 @@ defmodule InstagramLink.UtilitiesTest do
     assert entities == %{
       "links" => [
         %{
-          "pos" => 20,
+          "pos" => 23,
+          "len" => 5,
+          "url" => "http://www.example.com"
+        }
+      ]
+    }
+  end
+
+  test "generate_text_entities works with emoji 2" do
+    {text, entities} = Utilities.generate_text_entities(
+      "⛷ & ♨️",
+      "http://www.example.com")
+
+    assert text == "⛷ & ♨️ Image"
+    assert entities == %{
+      "links" => [
+        %{
+          "pos" => 7,
+          "len" => 5,
+          "url" => "http://www.example.com"
+        }
+      ]
+    }
+  end
+
+  test "generate_text_entities works with emoji 3" do
+    {text, entities} = Utilities.generate_text_entities(
+      "Waffles. 🍴☕️",
+      "http://www.example.com")
+
+    assert text == "Waffles. 🍴☕️ Image"
+    assert entities == %{
+      "links" => [
+        %{
+          "pos" => 13,
+          "len" => 5,
+          "url" => "http://www.example.com"
+        }
+      ]
+    }
+  end
+
+  test "generate_text_entities works with emoji 4" do
+    {text, entities} = Utilities.generate_text_entities(
+      "2016 calendar from Yamabicco Design 💌🗓 #calendar #japaneseprint #wp #tw",
+      "http://www.example.com")
+
+    assert text == "2016 calendar from Yamabicco Design 💌🗓 #calendar #japaneseprint #wp #tw Image"
+    assert entities == %{
+      "links" => [
+        %{
+          "pos" => 72,
           "len" => 5,
           "url" => "http://www.example.com"
         }
