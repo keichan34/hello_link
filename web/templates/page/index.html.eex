@@ -5,6 +5,10 @@
     <a href="https://instagram.com">Instagram</a>
     photos to <a href="https://app.net">App.net</a>.
   </p>
+  <p>
+    Interested in the source code? It's <a href="https://github.com/keichan34/hello_link">available
+    on GitHub</a>.
+  </p>
 </div>
 
 <%= if User.is_linked_to_instagram?(@conn.assigns.user) && User.is_linked_to_adn?(@conn.assigns.user) do %>
